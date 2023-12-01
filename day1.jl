@@ -21,18 +21,22 @@ matchn(codes)
 function matchn_str(codes::Array{String,1})
     s = 0
     for l in codes
-        l = replace(
-            l,
-            "one" => "1",
-            "two" => "2",
-            "three" => "3",
-            "four" => "4",
-            "five" => "5",
-            "six" => "6",
-            "seven" => "7",
-            "eight" => "8",
-            "nine" => "9",
-        )
+        lold = [] # keep the original line for the last number
+        while lold != l
+            lold = l
+            l = replace(
+                l,
+                "one" => "1ne",
+                "two" => "2wo",
+                "three" => "3ree",
+                "four" => "4our",
+                "five" => "5ive",
+                "six" => "6ix",
+                "seven" => "7en",
+                "eight" => "8ight",
+                "nine" => "9ine",
+            )
+        end
         first = match(r"([0-9])", l).captures[1] |> x -> parse(Int, x)
         last = match(r"([0-9])\D*$", l).captures[1] |> x -> parse(Int, x)
         s = s+(first*10)+last
